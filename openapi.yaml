@@ -1,0 +1,77 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: wwww.cloude.ch pagespeed API
+  description: Use to call Google pagespeed insights
+  version: "1.0.0"
+# the domain of the service
+host: pagespeed.clouded.ch
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /api
+produces:
+  - application/json
+paths:
+  /sites:
+    get:
+      summary: Pagespeed insight
+      description: |
+        The site endpoint returns a number from 0 to 100.
+      operationId: sites
+      parameters:
+        - name: url
+          in: query
+          description: full website address.
+          required: true
+          type: string
+      tags:
+        - sites
+      responses:
+        200:
+          description: pagespeed 0 to 100
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+      x-security:
+      - site:
+          audiences:
+          # Your OAuth2 client's Client ID must be added here. You can add
+          # multiple client IDs to accept tokens from multiple clients.
+          - "AIzaSyARtK_u3TPdLFK7Kf7jPEFKE5VIr0W0FXE"
+definitions:
+  sites:
+    type: object
+    properties:
+      pagespeed:
+        type: integer
+        description: Google rated speed
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
+securityDefinitions:
+  # This section configures basic authentication with an API key.
+  api_key:
+    type: "apiKey"
+    name: "key"
+    in: "query"
+  sites:
+    authorizationUrl: ""
+    flow: "implicit"
+    type: "oauth2"
+    x-issuer: "accounts.google.com"
+    x-jwks_uri: "https://www.googleapis.com/oauth2/v1/certs"

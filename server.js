@@ -9,7 +9,7 @@ var port = process.env.PORT || 8121;
 
 var siteRouter = express.Router();
 
-siteRouter.route('/site')
+siteRouter.route('/sites')
     .get(function(req, res) {
 
         var query = {};
@@ -20,7 +20,8 @@ siteRouter.route('/site')
         }
 
         psi(req.query.url, {key: API_KEY, strategy: 'mobile'}).then(data => {
-            res.json({speed: data.ruleGroups.SPEED.score});
+	    res.header("Access-Control-Allow-Origin", "*");
+            res.json({data: {id: 1, speed: data.ruleGroups.SPEED.score}});
         });
     });
 

@@ -20,8 +20,27 @@ siteRouter.route('/sites')
         }
 
         psi(req.query.url, {key: API_KEY, strategy: 'mobile'}).then(data => {
-	    res.header("Access-Control-Allow-Origin", "*");
-            res.json({data: {id: 1, speed: data.ruleGroups.SPEED.score}});
+	        res.header("Access-Control-Allow-Origin", "*");
+	        
+            res.json({data:
+                        {
+                            id: 1,
+                            speed: data.ruleGroups.SPEED.score,
+                            usability: data.ruleGroups.USABILITY.score,
+                            numberResources: data.pageStats.numberResources,
+                            numberHosts: data.pageStats.numberHosts,
+                            totalRequestBytes: data.pageStats.totalRequestBytes,
+                            numberStaticResources: data.pageStats.numberStaticResources,
+                            htmlResponseBytes: data.pageStats.htmlResponseBytes,
+                            textResponseBytes: data.pageStats.textResponseBytes,
+                            cssResponseBytes: data.pageStats.cssResponseBytes,
+                            imageResponseBytes: data.pageStats.imageResponseBytes,
+                            javascriptResponseBytes: data.pageStats.javascriptResponseBytes,
+                            flashResponseBytes: data.pageStats.flashResponseBytes,
+                            otherResponseBytes: data.pageStats.otherResponseBytes,
+                            numberJsResources: data.pageStats.numberJsResources,
+                            numberCssResources: data.pageStats.numberCssResources
+                        }});
         });
     });
 

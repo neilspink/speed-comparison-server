@@ -6,7 +6,7 @@ info:
   description: Use to call Google pagespeed insights
   version: "1.0.0"
 # the domain of the service
-host: pagespeed.clouded.ch
+host: api.clouded.ch
 # array of all schemes that your API supports
 schemes:
   - http

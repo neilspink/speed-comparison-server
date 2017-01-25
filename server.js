@@ -47,7 +47,7 @@ siteRouter.route('/sites')
 app.use('/api', siteRouter);
 
 app.get('/', function(req, res){
-    res.send('welcome to my API');
+    res.send('Private API - This service calls Google PageSpeed Insights that is all - https://developers.google.com/speed/pagespeed/insights/');
 });
 
 app.listen(port, function(){
